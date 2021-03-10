@@ -1,0 +1,25 @@
+{
+  "name": "asmscript_2",
+  "version": "1.0.0",
+  "description": "# get the latest version of as-pect",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "asbuild:untouched": "asc assembly/index.ts --target debug",
+    "asbuild:optimized": "asc assembly/index.ts --target release",
+    "asbuild": "npm run asbuild:untouched && npm run asbuild:optimized",
+    "test:watch": "onchange -i -k 'assembly/**/*.ts' -- npx asp"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@assemblyscript/loader": "^0.18.9"
+  },
+  "devDependencies": {
+    "@as-pect/cli": "^6.0.0",
+    "assemblyscript": "^0.18.9",
+    "onchange": "^7.1.0",
+    "prettier": "^2.2.1",
+    "prettier-plugin-jsdoc": "^0.3.12"
+  }
+}
