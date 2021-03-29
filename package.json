@@ -1,7 +1,7 @@
 {
-  "name": "asmscript_2",
+  "name": "as-t-digest",
   "version": "1.0.0",
-  "description": "# get the latest version of as-pect",
+  "description": "t-digest for AssemblyScript",
   "main": "index.js",
   "scripts": {
     "test": "test",
@@ -14,7 +14,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@assemblyscript/loader": "^0.18.9"
+    "@assemblyscript/loader": "^0.18.9",
+    "as-avl-tree": "^1.6.3"
   },
   "devDependencies": {
     "@as-pect/cli": "^6.0.0",

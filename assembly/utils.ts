@@ -1,4 +1,4 @@
-import { Centroid } from "./t-digest-naive";
+import { Centroid } from "./centroid";
 import { scaleFunction } from "./scale-functions";
 
 export function interpolate(y: f64, y1: f64, y2: f64, x1: f64, x2: f64): f64 {

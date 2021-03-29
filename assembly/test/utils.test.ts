@@ -1,4 +1,4 @@
-import { Centroid } from "../t-digest-naive";
+import { Centroid } from "../centroid";
 import { centroidsFromPoints, findClosestCentroids } from "../utils";
 
 describe("centroidsFromPoints", () => {

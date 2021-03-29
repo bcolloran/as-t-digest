@@ -1,31 +1,6 @@
 import { interpolate, findMergeCentroid } from "./utils";
 import { scaleFunction, KInvOfKFn_1, kFn_1 } from "./scale-functions";
-
-export class Centroid {
-  constructor(public mean: f64, public count: f64) {}
-
-  @operator("+")
-  static add(a: Centroid, b: Centroid): Centroid {
-    const count = a.count + b.count;
-    const mean = (a.count * a.mean + b.count * b.mean) / count;
-    return new Centroid(mean, count);
-  }
-
-  updateAdd(a: Centroid): void {
-    const count = a.count + this.count;
-    const mean = (a.count * a.mean + this.count * this.mean) / count;
-    this.mean = mean;
-    this.count = count;
-  }
-}
-
-export function centroidSortFn(c1: Centroid, c2: Centroid): i32 {
-  return c1.mean < c2.mean ? -1 : c1.mean === c2.mean ? 0 : 1;
-}
-
-class TDigest {
-  constructor(public size: f64 = 0, public centroids: Centroid[] = []) {}
-}
+import { Centroid, centroidSortFn } from "./centroid";
 
 /**
  * Algorithm 1, https://arxiv.org/pdf/1902.04023.pdf p.9
@@ -95,7 +70,7 @@ export function tDigestCluster(
     totalWeight += x.count;
 
     if (totalWeight > growthBound * delta) {
-      mergeData(centroids, [], delta, KInvOfKFn);
+      centroids = mergeData(centroids, [], delta, KInvOfKFn);
     }
   }
   return mergeData(centroids, [], delta, KInvOfKFn);
@@ -110,7 +85,7 @@ export function tDigestCluster(
  * exceptions are the first and last "centroids", which contribute all of their
  * weight to the following/preceding interval.
  *
- * @param X - A sorted array of centroids (i.e., a t-digest)
+ * @param X A sorted array of centroids (i.e., a t-digest)
  * @param q - The target quantile; a float in the interval [0,1]
  */
 export function estimateQuantile(X: Centroid[], q: f64): f64 {
